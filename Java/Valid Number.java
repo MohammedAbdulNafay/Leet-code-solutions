@@ -42,18 +42,13 @@ class Solution {
             
             if(num == '.')
             {
-                if(dot)
+                if(dot || e)
                 {
                     return false;
                 }
                 else
                 {
                     dot = true;
-                }
-                
-                if(e)
-                {
-                    return false;
                 }
                 
                 if(i+1 >= len)
