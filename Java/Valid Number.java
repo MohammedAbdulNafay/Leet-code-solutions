@@ -28,7 +28,7 @@ class Solution {
             return false;
         }
         
-        boolean dotOrEFlag = false, dot = false, e = false, plusMinus = false;
+        boolean dot = false, e = false, plusMinus = false;
         
         char num;
         for(int i = 0; i < len; i++)
@@ -51,13 +51,9 @@ class Solution {
                     dot = true;
                 }
                 
-                if(dotOrEFlag)
+                if(e)
                 {
                     return false;
-                }
-                else
-                {
-                    dotOrEFlag = true;
                 }
                 
                 if(i+1 >= len)
@@ -81,8 +77,6 @@ class Solution {
             
             if(num == 'e')
             {
-                dotOrEFlag = true;
-                
                 if(e)
                 {
                     return false;
