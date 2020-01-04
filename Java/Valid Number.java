@@ -105,7 +105,7 @@ class Solution {
                     {
                         return false;
                     }
-                    if(!e || (e && i+1 == len))
+                    if(s.charAt(i-1) != 'e' || (s.charAt(i-1) == 'e' && i+1 == len))
                     {
                         return false;
                     }
