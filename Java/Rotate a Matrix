@@ -1,0 +1,73 @@
+class Solution {
+	static int N = 4;
+
+	// Function to print the matrix
+  static void print(int arr[][])
+	{
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = 0; j < N; j++)
+				System.out.print(arr[i][j] + " ");
+			System.out.println();
+		}
+	}
+  
+  // Function to rotate the matrix 90 degree clockwise
+	static void rotate90Clockwise(int arr[][])
+	{
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = N - 1; j >= 0; j--)
+				System.out.print(arr[j][i] + " ");
+			System.out.println();
+		}
+	}
+  
+  // Function to rotate the matrix 180 degree clockwise
+  static void rotate180Clockwise(int arr[][])
+	{
+		for (int i = N - 1; i >= 0; i--)
+		{
+			for (int j = N - 1; j >= 0; j--)
+				System.out.print(arr[i][j] + " ");
+			System.out.println();
+		}
+	}
+  
+  // Function to rotate the matrix 27 0 degree clockwise
+ static void rotate270Clockwise(int arr[][])
+	{
+		for (int i = N - 1; i >= 0; i--)
+		{
+			for (int j = 0; j < N; j++)
+				System.out.print(arr[j][i] + " ");
+			System.out.println();
+		}
+	}
+  
+	public static void main(String[] args)
+	{
+		  int arr[][] = { { 1, 2, 3, 4 },
+						          { 5, 6, 7, 8 },
+						          { 9, 10, 11, 12 },
+						          { 13, 14, 15, 16 } };
+      
+      //Print the given matrix
+      print(arr);
+      System.out.println("\n");
+      
+      //Print the 90 degrees rotated matrix
+	    rotate90Clockwise(arr);
+      System.out.println("\n");
+      
+      //Print the 180 degrees rotated matrix
+      rotate180Clockwise(arr);
+      System.out.println("\n");
+      
+      //Print the 270 degrees rotated matrix
+      rotate270Clockwise(arr);
+      System.out.println("\n");
+      
+      
+	}
+}
