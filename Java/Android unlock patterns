@@ -29,8 +29,8 @@ Example:
 Given m = 1, n = 1, return 9.
 
 Solution:
-```
-import java.io.*;
+
+```import java.io.*;
 import java.util.*;
 
 class Solution {
@@ -144,5 +144,4 @@ class Solution {
 	    
 	    return answer;
 	}
-}
-```
+}```
