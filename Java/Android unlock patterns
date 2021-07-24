@@ -1,0 +1,148 @@
+Problem:
+Given an Android 3x3 key lock screen and two integers m and n, where 1 ≤ m ≤ n ≤ 9, count the total number of unlock patterns of the Android lock screen, which consist of minimum of m keys and maximum n keys.
+
+Rules for a valid pattern:
+Each pattern must connect at least m keys and at most n keys.
+All the keys must be distinct.
+If the line connecting two consecutive keys in the pattern passes through any other keys, the other keys must have previously selected in the pattern. No jumps through non selected key is allowed.
+The order of keys used matters.
+
+![](/assets/android.png)
+
+Explanation:
+| 1 | 2 | 3 |
+| 4 | 5 | 6 |
+| 7 | 8 | 9 |
+Invalid move: 4 - 1 - 3 - 6 
+Line 1 - 3 passes through key 2 which had not been selected in the pattern.
+
+Invalid move: 4 - 1 - 9 - 2
+Line 1 - 9 passes through key 5 which had not been selected in the pattern.
+
+Valid move: 2 - 4 - 1 - 3 - 6
+Line 1 - 3 is valid because it passes through key 2, which had been selected in the pattern
+
+Valid move: 6 - 5 - 4 - 1 - 9 - 2
+Line 1 - 9 is valid because it passes through key 5, which had been selected in the pattern.
+
+Example:
+Given m = 1, n = 1, return 9.
+
+Solution:
+```
+import java.io.*;
+import java.util.*;
+
+class Solution {
+	public static void main (String[] args) {
+		System.out.println("GfG!");
+		
+		Scanner sc= new Scanner(System.in);
+		int testCases = sc.nextInt();
+		
+		Map<String, Integer> acrossPass = new HashMap<>();
+		
+		acrossPass.put("13", 2);
+		acrossPass.put("31", 2);
+		acrossPass.put("17", 4);
+		acrossPass.put("71", 4);
+		acrossPass.put("79", 8);
+		acrossPass.put("97", 8);
+		acrossPass.put("93", 6);
+		acrossPass.put("39", 6);
+		acrossPass.put("19", 5);
+		acrossPass.put("91", 5);
+		acrossPass.put("37", 5);
+		acrossPass.put("73", 5);
+		acrossPass.put("28", 5);
+		acrossPass.put("82", 5);
+		acrossPass.put("46", 5);
+		acrossPass.put("64", 5);
+		
+		while(testCases-- > 0)
+		{
+		    int min = sc.nextInt();
+		    int max = sc.nextInt();
+		    
+		    
+		    System.out.println("Number of patterns ranging from "+min+" to "+max+" are => "+numberOfPatterns(min, max, acrossPass));
+            System.out.println("==============================================");
+		}
+	}
+	
+	static int numberOfPatterns(int m, int n, Map<String, Integer> acrossPass)
+	{
+	    int answer = 0;
+	    boolean[] visited = new boolean[11];
+	    
+	    List<List<Integer>> result = new ArrayList<>();
+	    List<Integer> list;
+	    
+	    for(int i = m; i <= n; i++)
+	    {
+	        visited[1] = true;
+	        list = new ArrayList<>();
+	        list.add(1);
+	        answer += (helper(1, i-1, visited, acrossPass, list, result)*4);
+	        Arrays.fill(visited, false);
+	        
+	        visited[2] = true;
+	        list = new ArrayList<>();
+	        list.add(2);
+	        answer += (helper(2, i-1, visited, acrossPass, list, result)*4);
+	        Arrays.fill(visited, false);
+	        
+	        visited[5] = true;
+	        list = new ArrayList<>();
+	        list.add(5);
+	        answer += helper(5, i-1, visited, acrossPass, list, result);
+	        Arrays.fill(visited, false);
+	        
+	    }
+	    
+	    for(List<Integer> innerList : result)
+	    {
+	        for(Integer num : innerList)
+	        {
+	            System.out.print(num + " -- ");
+	        }
+	        System.out.println();
+	    }
+	    
+	    return answer;
+	}
+	
+	static int helper(int current, int limit, boolean[] visited, Map<String, Integer> acrossPass, List<Integer> list, List<List<Integer>> result)
+	{
+	    
+	    if(limit == 0)
+	    {
+	        result.add(new ArrayList<>(list));
+	        return 1;
+	    }
+	    
+	    if(limit < 0)
+	    {
+	        return 0;
+	    }
+	    
+	    int answer = 0;
+	    
+	    for(int next = 1; next <= 9; next++)
+	    {
+	        if(!visited[next] && (!acrossPass.containsKey(current+""+next) || visited[acrossPass.get(current+""+next)]))
+	        {
+	            visited[next] = true;
+	            list.add(next);
+	            answer += helper(next, limit-1, visited, acrossPass, list, result);
+	            visited[next] = false;
+	            list.remove(list.size()-1);
+	        }
+	    }
+	    //visited[current] = false;
+	    //list.remove(list.size()-1);
+	    
+	    return answer;
+	}
+}
+```
